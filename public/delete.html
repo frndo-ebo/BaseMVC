@@ -22,6 +22,38 @@
     <button id="deleteBtn">Excluir Cliente</button>
     <p id="message"></p>
 
-    
+    <script>
+    document.getElementById('deleteBtn').addEventListener('click', async ()=>{
+        const clienteId = document.getElementById('clientId').value;
+        const messageElement = document.getElementById('message');
+
+        if(!clienteId){
+            messageElement.textContent = 'Por favor, insira um ID.'
+            return;
+        }
+        try {
+            
+            const response = await fetch(`/api/clientes/${clienteId}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if(response.ok){
+                messageElement.textContent = 'Cliente excluido com sucesso!';
+            }else{
+                const errorData = await response.json();
+                messageElement.textContent = `Erro: ${errorData.error}`;
+            }
+
+        } catch (error) {
+            messageElement.textContent = 'Erro ao excluir cliente.';
+            console.error('Erro:', error);
+        }
+    })
+</script>
+
 </body>
 </html>
