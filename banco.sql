@@ -7,9 +7,7 @@ CREATE TABLE IF NOT EXISTS cliente (
     cpf VARCHAR(100) NOT NULL
 );
 
--- -----------------------------------------------------
 -- Procedure: Inserir Cliente
--- -----------------------------------------------------
 DELIMITER $$
 CREATE PROCEDURE sp_create_client(
     IN p_nome VARCHAR(100),
@@ -17,24 +15,18 @@ CREATE PROCEDURE sp_create_client(
 )
 BEGIN
     INSERT INTO cliente (nome, cpf) VALUES (p_nome, p_cpf);
-    -- Retorna o ID que acabou de ser gerado
     SELECT LAST_INSERT_ID() AS insertId;
 END $$
 DELIMITER ;
 
--- -----------------------------------------------------
 -- Procedure: Listar Todos os Clientes
--- -----------------------------------------------------
 DELIMITER $$
 CREATE PROCEDURE sp_get_all_clients()
 BEGIN
     SELECT * FROM cliente;
 END $$
 DELIMITER ;
-
--- -----------------------------------------------------
 -- Procedure: Atualizar Cliente
--- -----------------------------------------------------
 DELIMITER $$
 CREATE PROCEDURE sp_update_client(
     IN p_id INT,
@@ -46,9 +38,7 @@ BEGIN
 END $$
 DELIMITER ;
 
--- -----------------------------------------------------
 -- Procedure: Deletar Cliente
--- -----------------------------------------------------
 DELIMITER $$
 CREATE PROCEDURE sp_delete_client(
     IN p_id INT
